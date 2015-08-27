@@ -17,6 +17,7 @@ input = getattr(__builtins__, 'raw_input', input)
 
 import re
 import os
+import argparse
 import platform
 
 
@@ -88,6 +89,12 @@ class BashRc(ConfigFile):
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--no-confirm', dest='confirm', action='store_false',
+            help='Installs promptastic without asking for confirmation')
+    parser.set_defaults(confirm=True)
+    args = parser.parse_args()
+
     print('\nPromptastic setup\n=================')
     print('\nChecking if promptastic is already installed in the system...')
 
@@ -99,7 +106,10 @@ if __name__ == '__main__':
     if to_be_installed:
         text = ' and '.join([x.path for x in to_be_installed])
         print('\nWe are about to install promptastic in {}'.format(text))
-        a = input('Are you sure you want to continue [y/N]? ')
+        if args.confirm:
+            a = input('Are you sure you want to continue [y/N]? ')
+        else:
+            a = 'y'
 
         if a == 'y':
             for x in to_be_installed:
