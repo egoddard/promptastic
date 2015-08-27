@@ -36,8 +36,8 @@ SEGMENTS = {
     'venv': True,
 
     # Number of running jobs, if any.
-    'jobs': True,
+    'jobs': False,
 
     # Current time.
-    'time': True,
+    'time': False,
 }
